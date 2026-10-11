@@ -2,5 +2,6 @@
   "dependencies": {
     "express": "^5.2.1",
     "redis": "^6.3.0"
-  }
+  },
+  "type": "module"
 }

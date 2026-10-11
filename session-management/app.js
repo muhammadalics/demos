@@ -65,12 +65,9 @@ app.post('/cart', requireSession, async (req, res) => {
   res.send({ message: 'Cart updated successfully', cart: await getCart(req.sessionId) });
 });
 
-// DELETE /logout/:sessionId - remove the session and its cart
-app.delete('/logout/:sessionId', async (req, res) => {
-  const { sessionId } = req.params;
-
-  await redisClient.del([sessionId, cartKey(sessionId)]);
-
+// DELETE /logout - remove the session and cart
+app.delete('/logout', requireSession, async (req, res) => {
+  await redisClient.del([req.sessionId, cartKey(req.sessionId)]);
   res.send({ status: 'Logged out successfully. Session destroyed.' });
 });
 
